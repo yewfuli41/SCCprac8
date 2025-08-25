@@ -24,30 +24,32 @@ jobs:
       with:
         gradle-version: 7.6
     - name: Build with Gradle
-      run: gradle build 
+      run: gradle build     
+      working-directory: hello-world-java2
 
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v4
       with:
         name: build-artifacts
-        path: build/libs/**
+        path: hello-world-java2/build/libs/**
 
     - name: Run Unit Test
       run: gradle test
-
+      working-directory: hello-world-java2
     - name: Upload Test Reports
       uses: actions/upload-artifact@v4
       with:
         name: test-reports
-        path: build/reports/tests/**
+        path: hello-world-java2/build/reports/tests/**
     - name: Generate code coverage report
       run: gradle jacocoTestReport
-
+      working-directory: hello-world-java2
     - name: Upload code coverage report
       uses: actions/upload-artifact@v4
       with:
         name: code-coverage-report
-        path: build/reports/jacoco/test/html/**
+        path: hello-world-java2/build/reports/jacoco/test/html/**
         
     - name: Run Deployment
       run: java -jar build/libs/hello-world-java-V1.jar
+      working-directory: hello-world-java2
